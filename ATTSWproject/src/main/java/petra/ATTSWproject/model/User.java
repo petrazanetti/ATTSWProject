@@ -1,4 +1,4 @@
-package petra.ATTSWproject;
+package petra.ATTSWproject.model;
 
 public class User {
 	

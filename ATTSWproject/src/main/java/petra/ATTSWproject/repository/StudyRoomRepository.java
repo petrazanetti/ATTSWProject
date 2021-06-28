@@ -1,4 +1,6 @@
-package petra.ATTSWproject;
+package petra.ATTSWproject.repository;
+
+import petra.ATTSWproject.model.User;
 
 public interface StudyRoomRepository {
 
@@ -7,7 +9,5 @@ public interface StudyRoomRepository {
 	void save(User user);
 
 	void delete(String string);
-
-	int size();
 
 }
