@@ -1,7 +1,6 @@
-package petra.ATTSWproject;
+package petra.ATTSWproject.controller;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.*;
 
 import org.junit.Before;
@@ -10,9 +9,13 @@ import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-public class StudyRoomTest {
+import petra.ATTSWproject.model.User;
+import petra.ATTSWproject.repository.StudyRoomRepository;
+import petra.ATTSWproject.view.StudyRoomView;
+
+public class StudyRoomControllerTest {
 	
-	private StudyRoom studyRoom;
+	private StudyRoomController studyRoomController;
 	
 	@Mock
 	private StudyRoomRepository studyRoomRepository;
@@ -23,52 +26,65 @@ public class StudyRoomTest {
 	@Before
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
-		studyRoom = new StudyRoom(studyRoomView,studyRoomRepository, 10)
+		studyRoomController = new StudyRoomController(studyRoomView,studyRoomRepository, 10)
 ;	}
 	
 	@Test
 	public void testAddingNewUserWhenUserDoesNotAlreadyExist() {
+		studyRoomController.setCurrentCapacity(0);
 		User user = new User("1", "Klara");
 		when(studyRoomRepository.findById("1")).thenReturn(null);
-		studyRoom.newUser(user);
+		studyRoomController.newUser(user);
 		InOrder inOrder = inOrder(studyRoomRepository, studyRoomView);
 		inOrder.verify(studyRoomRepository).save(user);
 		inOrder.verify(studyRoomView).userAdded(user);
+		assertEquals(1,studyRoomController.getCurrentCapacity(),0);
 	}
 	
 	@Test
 	public void testAddingNewUserWhenUserDoesAlreadyExist() {
 		User existingUser = new User("1", "Klara");
+		studyRoomController.setCurrentCapacity(1);
 		User addedUser = new User("1", "Petra");
 		when(studyRoomRepository.findById("1")).thenReturn(existingUser);
-		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,() -> studyRoom.newUser(addedUser));
-		assertEquals("There already exists user with id 1", e.getMessage());
+		studyRoomController.newUser(addedUser);
+		verify(studyRoomView).showError("Student with id 1 already exists", existingUser);
+		verifyNoMoreInteractions(ignoreStubs(studyRoomRepository));
+		assertEquals(1,studyRoomController.getCurrentCapacity(),0);
+
 	}
 	
 	@Test
 	public void testDeletingUserWhenUserExists() {
 		User user = new User("1", "Klara");
+		studyRoomController.setCurrentCapacity(1);
 		when(studyRoomRepository.findById("1")).thenReturn(user);
-		studyRoom.deleteUser(user);
+		studyRoomController.deleteUser(user);
 		InOrder inOrder = inOrder(studyRoomRepository, studyRoomView);
 		inOrder.verify(studyRoomRepository).delete("1");
 		inOrder.verify(studyRoomView).userRemoved(user);
+		assertEquals(0,studyRoomController.getCurrentCapacity(),0);
 	}
 	
 	@Test
 	public void testDeletingUserWhenUserDoesNotExist() {
+		studyRoomController.setCurrentCapacity(5);
 		User user = new User("1", "Klara");
 		when(studyRoomRepository.findById("1")).thenReturn(null);
-		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,() -> studyRoom.deleteUser(user));
-		assertEquals("Student with id 1 does not exist", e.getMessage());
+		studyRoomController.deleteUser(user);
+		verify(studyRoomView).showError("Student with id 1 does not exist", user);
+		verifyNoMoreInteractions(ignoreStubs(studyRoomRepository));
+		assertEquals(5,studyRoomController.getCurrentCapacity(),0);
 	}
 	
 	@Test
 	public void testAddingNewUserWhenStudyRoomIsFull() {
+		studyRoomController.setCurrentCapacity(10);
 		User user = new User("1", "Klara");
-		when(studyRoomRepository.size()).thenReturn(studyRoom.getMaxCapacity());
-		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,() -> studyRoom.newUser(user));
-		assertEquals("Study room is full", e.getMessage());
+		studyRoomController.newUser(user);
+		verify(studyRoomView).showError("Study room is full");
+		verifyNoMoreInteractions(studyRoomRepository);
+		assertEquals(10,studyRoomController.getCurrentCapacity(),0);
 	}
 	
 
