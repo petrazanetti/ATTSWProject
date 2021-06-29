@@ -76,6 +76,11 @@
               </goals>
             </execution>
           </executions>
+          <configuration>
+          	<excludes>
+          	 <exclude>**/User.*</exclude>
+        	</excludes>
+          </configuration>
         </plugin>
         <plugin>
     	 <groupId>org.eluder.coveralls</groupId>
