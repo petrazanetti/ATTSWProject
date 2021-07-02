@@ -10,6 +10,7 @@ public class StudyRoomController {
 	private StudyRoomRepository studyRoomRepository;
 	private int maxCapacity;
 	private int currentCapacity;
+
 	
 	public int getCurrentCapacity() {
 		return currentCapacity;

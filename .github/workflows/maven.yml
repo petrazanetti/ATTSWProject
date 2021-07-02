@@ -23,6 +23,6 @@ jobs:
            key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
            restore-keys: ${{ runner.os }}-m2-
       - name: Build with Maven
-        run: mvn -f ATTSWproject/pom.xml clean verify -Pjacoco -DrepoToken=$COVERALLS_REPO_TOKEN coveralls:report
+        run: xvfb-run mvn -f ATTSWproject/pom.xml clean verify -Pjacoco -DrepoToken=$COVERALLS_REPO_TOKEN coveralls:report
         env: 
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}

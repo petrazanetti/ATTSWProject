@@ -3,6 +3,7 @@ package petra.ATTSWproject.controller;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InOrder;
@@ -23,11 +24,17 @@ public class StudyRoomControllerTest {
 	@Mock
 	private StudyRoomView studyRoomView;
 	
+	private AutoCloseable closeable;
+	
 	@Before
 	public void setup() {
-		MockitoAnnotations.initMocks(this);
-		studyRoomController = new StudyRoomController(studyRoomView,studyRoomRepository, 10)
-;	}
+		closeable = MockitoAnnotations.openMocks(this);
+		studyRoomController = new StudyRoomController(studyRoomView,studyRoomRepository, 10);	}
+	
+	@After
+	public void releaseMocks() throws Exception {
+		closeable.close();
+	}
 	
 	@Test
 	public void testAddingNewUserWhenUserDoesNotAlreadyExist() {
