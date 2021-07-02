@@ -20,7 +20,7 @@ public class StudyRoomMongoRepository implements StudyRoomRepository {
 	@Override
 	public User findById(String id) {
 		Document user = userCollection.find(Filters.eq("id", id)).first();
-		if (user == null)
+		if (user != null)
 			return new User(""+user.get("id"), ""+user.get("name"));
 		return null;		
 	}
