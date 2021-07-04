@@ -26,6 +26,10 @@ public class StudyRoomController {
 		this.maxCapacity = maxCapacity;
 		this.currentCapacity = 0;
 	}
+	
+	public void allUsers() {
+		studyRoomView.showAllUsers(studyRoomRepository.findAll());
+	}
 
 	public void newUser(User user) {
 		if(currentCapacity==maxCapacity) {
@@ -34,7 +38,7 @@ public class StudyRoomController {
 		}
 		User existingUser = studyRoomRepository.findById(user.getId());
 		if(existingUser != null) {
-			studyRoomView.showError("Student with id " + existingUser.getId() + " already exists", existingUser);
+			studyRoomView.showError("User with id " + existingUser.getId() + " already exists", existingUser);
 			return;
 		}
 		studyRoomRepository.save(user);
@@ -46,7 +50,7 @@ public class StudyRoomController {
 	public void deleteUser(User user) {
 		User existingUser = studyRoomRepository.findById(user.getId());
 		if(existingUser == null) {
-			studyRoomView.showError("Student with id " + user.getId() + " does not exist", user);
+			studyRoomView.showError("User with id " + user.getId() + " does not exist", user);
 			return;
 		}
 		studyRoomRepository.delete(user.getId());

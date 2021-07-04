@@ -1,7 +1,10 @@
 package petra.ATTSWproject.controller;
 
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
+
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -37,6 +40,14 @@ public class StudyRoomControllerTest {
 	}
 	
 	@Test
+	public void testAllUsers() {
+		List<User> users = asList(new User("1", "User"));
+		when(studyRoomRepository.findAll()).thenReturn(users);
+		studyRoomController.allUsers();
+		verify(studyRoomView).showAllUsers(users);
+	}
+	
+	@Test
 	public void testAddingNewUserWhenUserDoesNotAlreadyExist() {
 		studyRoomController.setCurrentCapacity(0);
 		User user = new User("1", "Klara");
@@ -55,7 +66,7 @@ public class StudyRoomControllerTest {
 		User addedUser = new User("1", "Petra");
 		when(studyRoomRepository.findById("1")).thenReturn(existingUser);
 		studyRoomController.newUser(addedUser);
-		verify(studyRoomView).showError("Student with id 1 already exists", existingUser);
+		verify(studyRoomView).showError("User with id 1 already exists", existingUser);
 		verifyNoMoreInteractions(ignoreStubs(studyRoomRepository));
 		assertEquals(1,studyRoomController.getCurrentCapacity(),0);
 
@@ -79,7 +90,7 @@ public class StudyRoomControllerTest {
 		User user = new User("1", "Klara");
 		when(studyRoomRepository.findById("1")).thenReturn(null);
 		studyRoomController.deleteUser(user);
-		verify(studyRoomView).showError("Student with id 1 does not exist", user);
+		verify(studyRoomView).showError("User with id 1 does not exist", user);
 		verifyNoMoreInteractions(ignoreStubs(studyRoomRepository));
 		assertEquals(5,studyRoomController.getCurrentCapacity(),0);
 	}

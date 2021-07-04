@@ -139,8 +139,9 @@ public class StudyRoomSwingViewTest extends AssertJSwingJUnitTestCase{
 		GuiActionRunner.execute(
 			() -> studyRoomSwingView.showError("error message", user)
 		);
-		window.label("errorMessageLabel")
-			.requireText("error message: " + user);
+		//window.label("errorMessageLabel").requireText("error message: " + user);
+		window.label("errorMessageLabel").requireText("error message");
+
 	}
 	
 	@Test
@@ -188,20 +189,12 @@ public class StudyRoomSwingViewTest extends AssertJSwingJUnitTestCase{
 	}
 	
 
-	  @Test public void
-	  testWhenStudyRoomIsFullThenAddButtonShouldBeDisabledWhenAddingNewUser() {
+	  @Test 
+	  public void testWhenStudyRoomIsFullThenAddButtonShouldBeDisabledWhenAddingNewUser() {
 		  GuiActionRunner.execute( () -> studyRoomSwingView.showError("Study room is full") );
 		  window.textBox("idTextBox").enterText("1");
 		  window.textBox("nameTextBox").enterText("Petra");
-		  window.button(JButtonMatcher.withText("Add")).requireDisabled(); }
-	 
-	
-
-
-
-
-
-	
-	
+		  window.button(JButtonMatcher.withText("Add")).requireDisabled();
+	  }
 
 }
