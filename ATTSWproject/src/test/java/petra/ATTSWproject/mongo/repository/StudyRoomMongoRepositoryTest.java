@@ -70,6 +70,18 @@ public class StudyRoomMongoRepositoryTest {
 	}
 	
 	@Test
+	public void testFindAllWhenDatabaseIsEmpty() {
+		assertThat(studyRoomRepository.findAll()).isEmpty();
+	}
+
+	@Test
+	public void testFindAllWhenDatabaseIsNotEmpty() {
+		addTestUserToDatabase("1", "test1");
+		addTestUserToDatabase("2", "test2");
+		assertThat(studyRoomRepository.findAll()).containsExactly(new User("1", "test1"),new User("2", "test2"));
+	}
+	
+	@Test
 	public void testFindByIdWhenUserIsNotFound() {
 		assertThat(studyRoomRepository.findById("1")).isNull();
 	}

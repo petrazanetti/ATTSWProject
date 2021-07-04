@@ -51,6 +51,18 @@
       <version>1.37.0</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>testcontainers</artifactId>
+      <version>1.15.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>mongodb</artifactId>
+      <version>1.15.1</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   
   
@@ -102,11 +114,13 @@
             <configuration>
               <sources>
                 <source>src/it/java</source>
+                <source>src/e2e/java</source>
               </sources>
             </configuration>
           </execution>
         </executions>
       </plugin>
+      
     
     </plugins>
   </build>

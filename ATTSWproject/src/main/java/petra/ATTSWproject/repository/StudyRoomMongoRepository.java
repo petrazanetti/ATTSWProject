@@ -2,6 +2,10 @@ package petra.ATTSWproject.repository;
 
 import petra.ATTSWproject.model.User;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 import org.bson.Document;
 
 import com.mongodb.MongoClient;
@@ -12,9 +16,19 @@ import com.mongodb.client.model.Filters;
 public class StudyRoomMongoRepository implements StudyRoomRepository {
 
 	private MongoCollection<Document> userCollection;
+	public static final String USER_COLLECTION_NAME = "user";
+	public static final String STUDY_ROOM_DB_NAME = "studyRoom";
 	
 	public StudyRoomMongoRepository(MongoClient client) {
-		userCollection = client.getDatabase("studyRoom").getCollection("user");
+		userCollection = client.getDatabase(STUDY_ROOM_DB_NAME).getCollection(USER_COLLECTION_NAME);
+	}
+	
+	@Override
+	public List<User> findAll() {
+		return StreamSupport.
+				stream(userCollection.find().spliterator(), false)
+				.map(this::fromDocumentToUser)
+				.collect(Collectors.toList());
 	}
 
 	@Override
@@ -35,6 +49,10 @@ public class StudyRoomMongoRepository implements StudyRoomRepository {
 	@Override
 	public void delete(String id) {
 		userCollection.deleteOne(Filters.eq("id", id));
+	}
+	
+	private User fromDocumentToUser(Document d) {
+		return new User(""+d.get("id"), ""+d.get("name"));
 	}
 
 }

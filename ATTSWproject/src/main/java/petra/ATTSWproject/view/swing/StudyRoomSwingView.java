@@ -47,23 +47,6 @@ public class StudyRoomSwingView extends JFrame implements StudyRoomView {
 	
 	private DefaultListModel<User> listUsersModel;
 
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					StudyRoomSwingView frame = new StudyRoomSwingView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 	
 	DefaultListModel<User> getListUsersModel() {
 		return listUsersModel;
@@ -199,6 +182,11 @@ public class StudyRoomSwingView extends JFrame implements StudyRoomView {
 		contentPane.add(lblErrorMessage, gbc_lblErrorMessage);
 		
 	}
+	
+	@Override
+	public void showAllUsers(List<User> users) {
+		users.stream().forEach(listUsersModel::addElement);
+	}
 
 	@Override
 	public void userAdded(User user) {
@@ -207,14 +195,14 @@ public class StudyRoomSwingView extends JFrame implements StudyRoomView {
 
 	@Override
 	public void showError(String message, User user) {
-		lblErrorMessage.setText(message + ": " + user);		
+		lblErrorMessage.setText(message);		
+
 	}
 
 	@Override
 	public void showError(String message) {
 		lblErrorMessageFullRoom.setText(message);
 		btnAdd.setEnabled(false);
-		
 	}
 
 	@Override
@@ -225,11 +213,6 @@ public class StudyRoomSwingView extends JFrame implements StudyRoomView {
 
 	public void setStudyRoomController(StudyRoomController studyRoomController) {
 		this.studyRoomController = studyRoomController;
-	}
-
-	public Object showAllUsers(List<User> users) {
-		users.stream().forEach(listUsersModel::addElement);
-		return null;
 	}
 	
 	private void resetErrorLabels() {
