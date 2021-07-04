@@ -23,6 +23,10 @@ public class StudyRoomMongoRepository implements StudyRoomRepository {
 		userCollection = client.getDatabase(STUDY_ROOM_DB_NAME).getCollection(USER_COLLECTION_NAME);
 	}
 	
+	public StudyRoomMongoRepository(MongoClient client,String databaseName, String collectionName) {
+		userCollection = client.getDatabase(databaseName).getCollection(collectionName);
+	}
+	
 	@Override
 	public List<User> findAll() {
 		return StreamSupport.

@@ -1,7 +1,6 @@
 package petra.ATTSWproject.view.swing;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
@@ -69,7 +68,7 @@ public class StudyRoomSwingView extends JFrame implements StudyRoomView {
 			}
 		};
 		
-		setTitle("StudyRoom View");
+		setTitle("Study Room View");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
