@@ -28,6 +28,12 @@
     <sonar.coverage.exclusions>**/User.*,**/StudyRoomApp.*</sonar.coverage.exclusions>
     
     <sonar.junit.reportPaths>${project.build.directory}/surefire-reports,${project.build.directory}/failsafe-reports</sonar.junit.reportPaths>
+  	
+  	
+ 	<sonar.projectKey>petrazanetti_ATTSWProject</sonar.projectKey>
+  	<sonar.organization>petrazanetti1</sonar.organization>
+  	<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+  
   </properties>
 
   <dependencies>
