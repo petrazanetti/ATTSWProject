@@ -15,7 +15,7 @@ jobs:
             - java: 8
               additional-maven-args: "-Pjacoco -DrepoToken=$COVERALLS_REPO_TOKEN coveralls:report"
             - java: 11
-              additional-sonar-args: "sonar:sonar -Dsonar.organization=petrazanetti-github -Dsonar.host.url=https://sonarcloud.io"
+              additional-sonar-args: "sonar:sonar -Dsonar.organization=petrazanetti1 -Dsonar.host.url=https://sonarcloud.io"
 
       steps:
       - uses: actions/checkout@v2
