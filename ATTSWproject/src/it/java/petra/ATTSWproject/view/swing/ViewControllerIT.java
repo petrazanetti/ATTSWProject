@@ -2,8 +2,6 @@ package petra.ATTSWproject.view.swing;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.awt.Frame;
-
 import org.assertj.swing.core.matcher.JButtonMatcher;
 import org.assertj.swing.edt.GuiActionRunner;
 import org.assertj.swing.fixture.FrameFixture;
@@ -30,11 +28,14 @@ public class ViewControllerIT extends AssertJSwingJUnitTestCase{
 	private FrameFixture window;
 	private StudyRoomController studyRoomController;
 	private StudyRoomMongoRepository studyRoomMongoRepository;
+	
+	public static final String USER_COLLECTION_NAME = "user";
+	public static final String STUDY_ROOM_DB_NAME = "studyRoom";
 
 	@Before
 	public void onSetUp() {
 		client = new MongoClient(new ServerAddress(mongo.getContainerIpAddress(),mongo.getFirstMappedPort()));
-		studyRoomMongoRepository = new StudyRoomMongoRepository(client);
+		studyRoomMongoRepository = new StudyRoomMongoRepository(client,STUDY_ROOM_DB_NAME,USER_COLLECTION_NAME);
 		for (User student : studyRoomMongoRepository.findAll()) {
 			studyRoomMongoRepository.delete(student.getId());
 		}

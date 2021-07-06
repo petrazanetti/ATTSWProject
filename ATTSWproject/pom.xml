@@ -14,6 +14,20 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    
+    <sonar.issue.ignore.multicriteria>e11,e12,e13,e14</sonar.issue.ignore.multicriteria>
+    <sonar.issue.ignore.multicriteria.e11.ruleKey>java:S110</sonar.issue.ignore.multicriteria.e11.ruleKey>
+    <sonar.issue.ignore.multicriteria.e11.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e11.resourceKey>
+    <sonar.issue.ignore.multicriteria.e12.ruleKey>java:S117</sonar.issue.ignore.multicriteria.e12.ruleKey>
+    <sonar.issue.ignore.multicriteria.e12.resourceKey>**/StudyRoomSwingView.java</sonar.issue.ignore.multicriteria.e12.resourceKey>
+    <sonar.issue.ignore.multicriteria.e13.ruleKey>java:S120</sonar.issue.ignore.multicriteria.e13.ruleKey>
+    <sonar.issue.ignore.multicriteria.e13.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e13.resourceKey>
+    <sonar.issue.ignore.multicriteria.e14.ruleKey>java:S2699</sonar.issue.ignore.multicriteria.e14.ruleKey>
+    <sonar.issue.ignore.multicriteria.e14.resourceKey>**/StudyRoomSwingViewTest.java</sonar.issue.ignore.multicriteria.e14.resourceKey>
+    
+    <sonar.coverage.exclusions>**/User.*,**/StudyRoomApp.*</sonar.coverage.exclusions>
+    
+    <sonar.junit.reportPaths>${project.build.directory}/surefire-reports,${project.build.directory}/failsafe-reports</sonar.junit.reportPaths>
   </properties>
 
   <dependencies>
@@ -94,6 +108,7 @@
           <configuration>
           	<excludes>
           	 <exclude>**/User.*</exclude>
+          	 <exclude>**/StudyRoomApp.*</exclude>
         	</excludes>
           </configuration>
         </plugin>
@@ -102,7 +117,13 @@
      	 <artifactId>coveralls-maven-plugin</artifactId>
          <version>4.3.0</version>
 		</plugin>
+		<plugin>
+    	 <groupId>org.sonarsource.scanner.maven</groupId>
+     	 <artifactId>sonar-maven-plugin</artifactId>
+         <version>3.8.0.2131</version>
+		</plugin>
       </plugins>
+      
     </pluginManagement>
     <plugins>
      <plugin>
