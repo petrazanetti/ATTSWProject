@@ -32,6 +32,9 @@ public class StudyRoomMongoRepositoryTest {
 	private StudyRoomMongoRepository studyRoomRepository;
 	private MongoCollection<Document> userCollection;
 	
+	public static final String USER_COLLECTION_NAME = "user";
+	public static final String STUDY_ROOM_DB_NAME = "studyRoom";
+	
 	@BeforeClass
 	public static void setupServer() {
 		server = new MongoServer(new MemoryBackend());
@@ -46,7 +49,7 @@ public class StudyRoomMongoRepositoryTest {
 	@Before
 	public void setup() {
 		client = new MongoClient(new ServerAddress(serverAddress));
-		studyRoomRepository = new StudyRoomMongoRepository(client);
+		studyRoomRepository = new StudyRoomMongoRepository(client,STUDY_ROOM_DB_NAME,USER_COLLECTION_NAME);
 		MongoDatabase database = client.getDatabase("studyRoom");
 		database.drop();
 		userCollection = database.getCollection("user");

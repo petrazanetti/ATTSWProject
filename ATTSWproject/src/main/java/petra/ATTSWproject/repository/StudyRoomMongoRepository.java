@@ -16,12 +16,6 @@ import com.mongodb.client.model.Filters;
 public class StudyRoomMongoRepository implements StudyRoomRepository {
 
 	private MongoCollection<Document> userCollection;
-	public static final String USER_COLLECTION_NAME = "user";
-	public static final String STUDY_ROOM_DB_NAME = "studyRoom";
-	
-	public StudyRoomMongoRepository(MongoClient client) {
-		userCollection = client.getDatabase(STUDY_ROOM_DB_NAME).getCollection(USER_COLLECTION_NAME);
-	}
 	
 	public StudyRoomMongoRepository(MongoClient client,String databaseName, String collectionName) {
 		userCollection = client.getDatabase(databaseName).getCollection(collectionName);
@@ -58,5 +52,7 @@ public class StudyRoomMongoRepository implements StudyRoomRepository {
 	private User fromDocumentToUser(Document d) {
 		return new User(""+d.get("id"), ""+d.get("name"));
 	}
+	
+	
 
 }

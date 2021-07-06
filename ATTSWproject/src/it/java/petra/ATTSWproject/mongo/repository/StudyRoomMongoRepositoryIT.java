@@ -14,14 +14,12 @@ import com.mongodb.client.MongoDatabase;
 
 import petra.ATTSWproject.model.User;
 import petra.ATTSWproject.repository.StudyRoomMongoRepository;
-import static petra.ATTSWproject.repository.StudyRoomMongoRepository.USER_COLLECTION_NAME;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static petra.ATTSWproject.repository.StudyRoomMongoRepository.STUDY_ROOM_DB_NAME;
 
 public class StudyRoomMongoRepositoryIT {
 	
@@ -32,10 +30,13 @@ public class StudyRoomMongoRepositoryIT {
 	private StudyRoomMongoRepository studyRoomMongoRepository;
 	private MongoCollection<Document> userCollection;
 	
+	public static final String USER_COLLECTION_NAME = "user";
+	public static final String STUDY_ROOM_DB_NAME = "studyRoom";
+	
 	@Before
 	public void setup() {
 		client = new MongoClient(new ServerAddress(mongo.getContainerIpAddress(),mongo.getFirstMappedPort()));
-		studyRoomMongoRepository = new StudyRoomMongoRepository(client);
+		studyRoomMongoRepository = new StudyRoomMongoRepository(client,STUDY_ROOM_DB_NAME,USER_COLLECTION_NAME);
 		MongoDatabase database = client.getDatabase(STUDY_ROOM_DB_NAME);
 		database.drop();
 		userCollection = database.getCollection(USER_COLLECTION_NAME);

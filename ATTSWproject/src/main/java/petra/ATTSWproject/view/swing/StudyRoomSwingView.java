@@ -19,6 +19,7 @@ import java.util.List;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import javax.swing.DefaultListModel;
@@ -30,7 +31,7 @@ public class StudyRoomSwingView extends JFrame implements StudyRoomView {
 
 	private static final long serialVersionUID = 1L;
 
-	private StudyRoomController studyRoomController;
+	private transient StudyRoomController studyRoomController;
 	
 	private JPanel contentPane;
 	private JLabel lblId;
@@ -69,7 +70,7 @@ public class StudyRoomSwingView extends JFrame implements StudyRoomView {
 		};
 		
 		setTitle("Study Room View");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -124,7 +125,6 @@ public class StudyRoomSwingView extends JFrame implements StudyRoomView {
 		btnAdd = new JButton("Add");
 		btnAdd.setEnabled(false);
 		GridBagConstraints gbc_btnAdd = new GridBagConstraints();
-		//gbc_btnAdd.insets = new Insets(0, 0, 5, 5);
 		gbc_btnAdd.gridx = 0;
 		gbc_btnAdd.gridy = 2;
 		gbc_btnAdd.gridwidth = 2;
@@ -137,7 +137,6 @@ public class StudyRoomSwingView extends JFrame implements StudyRoomView {
 		btnDelete.addActionListener(
 				e -> studyRoomController.deleteUser(listUsers.getSelectedValue()));
 		GridBagConstraints gbc_btnDelete = new GridBagConstraints();
-		//gbc_btnDelete.insets = new Insets(0, 0, 5, 0);
 		gbc_btnDelete.gridx = 2;
 		gbc_btnDelete.gridy = 2;
 		gbc_btnDelete.gridwidth = 2;

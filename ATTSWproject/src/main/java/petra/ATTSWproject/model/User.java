@@ -39,5 +39,10 @@ public class User {
 	public String toString() {
 		return "User      id=" + id + ", name=" + name;
 	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(id,name);
+	}
 
 }
