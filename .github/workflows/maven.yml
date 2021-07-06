@@ -9,13 +9,18 @@ on:
 jobs:
    build:
       runs-on: ubuntu-latest
+      strategy:
+      matrix:
+        include:
+          - java: 8
+          - java: 11
 
       steps:
       - uses: actions/checkout@v2
-      - name: Set up JDK 8
+      - name: Set up JDK ${{ matrix.java }}
         uses: actions/setup-java@v1
         with:
-            java-version: 1.8
+            java-version: ${{ matrix.java }}
       - name: Cache Maven packages
         uses: actions/cache@v2
         with:
@@ -23,6 +28,7 @@ jobs:
            key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
            restore-keys: ${{ runner.os }}-m2-
       - name: Build with Maven
-        run: xvfb-run mvn -f ATTSWproject/pom.xml clean verify -Pjacoco -DrepoToken=$COVERALLS_REPO_TOKEN coveralls:report
+        #run: xvfb-run mvn -f ATTSWproject/pom.xml clean verify -Pjacoco -DrepoToken=$COVERALLS_REPO_TOKEN coveralls:report
+        run: xvfb-run mvn -f ATTSWproject/pom.xml clean verify
         env: 
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
