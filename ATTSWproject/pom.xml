@@ -188,10 +188,10 @@
 				</goals>
 				<configuration>
 					<excludes>
-						<exclude>**/*IT.java</exclude>
+						<exclude>**/*it.java</exclude>
 					</excludes>
 					<includes>
-						<include>**/*E2E.java</include>
+						<include>**/*e2e.java</include>
 					</includes>
 				</configuration>
 			</execution>
