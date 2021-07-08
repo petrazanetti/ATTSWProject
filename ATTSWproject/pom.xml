@@ -15,7 +15,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     
-    <sonar.issue.ignore.multicriteria>e11,e12,e13,e14</sonar.issue.ignore.multicriteria>
+    <sonar.issue.ignore.multicriteria>e11,e12,e13,e14,e15</sonar.issue.ignore.multicriteria>
     <sonar.issue.ignore.multicriteria.e11.ruleKey>java:S110</sonar.issue.ignore.multicriteria.e11.ruleKey>
     <sonar.issue.ignore.multicriteria.e11.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e11.resourceKey>
     <sonar.issue.ignore.multicriteria.e12.ruleKey>java:S117</sonar.issue.ignore.multicriteria.e12.ruleKey>
@@ -24,6 +24,8 @@
     <sonar.issue.ignore.multicriteria.e13.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e13.resourceKey>
     <sonar.issue.ignore.multicriteria.e14.ruleKey>java:S2699</sonar.issue.ignore.multicriteria.e14.ruleKey>
     <sonar.issue.ignore.multicriteria.e14.resourceKey>**/StudyRoomSwingViewTest.java</sonar.issue.ignore.multicriteria.e14.resourceKey>
+    <sonar.issue.ignore.multicriteria.e15.ruleKey>java:S3577</sonar.issue.ignore.multicriteria.e15.ruleKey>
+    <sonar.issue.ignore.multicriteria.e15.resourceKey>**/StudyRoomE2E.java</sonar.issue.ignore.multicriteria.e15.resourceKey>
     
     <sonar.coverage.exclusions>**/User.*,**/StudyRoomApp.*</sonar.coverage.exclusions>
     
