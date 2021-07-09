@@ -90,9 +90,8 @@
   
   
   <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
+    <plugins>
+		<plugin>
     	  <groupId>org.pitest</groupId>
     	  <artifactId>pitest-maven</artifactId>
     	  <version>1.6.7</version>
@@ -103,7 +102,7 @@
         	<targetTests>
             	<param>petra.ATTSWproject.controller.StudyRoomControllerTest</param>
         	</targetTests>
-    </configuration>
+    	  </configuration>
  	    </plugin>
  	    <plugin>
           <groupId>org.jacoco</groupId>
@@ -141,63 +140,60 @@
      	 <artifactId>sonar-maven-plugin</artifactId>
          <version>3.9.0.2155</version>
 		</plugin>
-      </plugins>
-    </pluginManagement>
-    <plugins>
-     <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <version>3.2.0</version>
-        <executions>
-          <execution>
-            <id>add-test-source</id>
-            <phase>generate-test-sources</phase>
-            <goals>
-              <goal>add-test-source</goal>
-            </goals>
-            <configuration>
+     	<plugin>
+         <groupId>org.codehaus.mojo</groupId>
+         <artifactId>build-helper-maven-plugin</artifactId>
+         <version>3.2.0</version>
+         <executions>
+           <execution>
+             <id>add-test-source</id>
+             <phase>generate-test-sources</phase>
+             <goals>
+               <goal>add-test-source</goal>
+             </goals>
+           <configuration>
               <sources>
                 <source>src/it/java</source>
                 <source>src/e2e/java</source>
               </sources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-		<groupId>org.apache.maven.plugins</groupId>
-		<artifactId>maven-failsafe-plugin</artifactId>
-		<version>2.22.1</version>
-		<executions>
-			<execution>
-				<id>default-it</id>
-				<goals>
-					<goal>integration-test</goal>
-					<goal>verify</goal>
-				</goals>
-			</execution>
-			<execution>
-				<id>e2e-tests</id>
-				<goals>
-					<goal>integration-test</goal>
-					<goal>verify</goal>
-				</goals>
-				<configuration>
-					<excludes>
-						<exclude>**/*it.java</exclude>
-					</excludes>
-					<includes>
-						<include>**/*e2e.java</include>
-					</includes>
-				</configuration>
-			</execution>
-		</executions>
-	 </plugin>
+           </configuration>
+           </execution>
+         </executions>
+      	</plugin>
+      	<plugin>
+		 <groupId>org.apache.maven.plugins</groupId>
+		 <artifactId>maven-failsafe-plugin</artifactId>
+		 <version>2.22.1</version>
+		 <executions>
+		   <execution>
+		     <id>default-it</id>
+		     <goals>
+			   <goal>integration-test</goal>
+			   <goal>verify</goal>
+			 </goals>
+		   </execution>
+		   <execution>
+			 <id>e2e-tests</id>
+		     <goals>
+			   <goal>integration-test</goal>
+			   <goal>verify</goal>
+		     </goals>
+		     <configuration>
+			   <excludes>
+			     <exclude>**/*it.java</exclude>
+			   </excludes>
+			   <includes>
+			     <include>**/*e2e.java</include>
+			   </includes>
+		     </configuration>
+		   </execution>
+		 </executions>
+	  </plugin>
     </plugins>
   </build>
   
   <profiles>
-  <profile>
+    <profile>
       <id>mutation-testing</id>
       <build>
         <plugins>
