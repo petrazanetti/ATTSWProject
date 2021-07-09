@@ -68,7 +68,7 @@ public class StudyRoomSwingViewTest extends AssertJSwingJUnitTestCase{
 	@Test
 	public void testWhenIdAndNameAreNotEmptyThenAddButtonShouldBeEnabled() {
 		window.textBox("idTextBox").enterText("1");
-		window.textBox("nameTextBox").enterText("Petra");
+		window.textBox("nameTextBox").enterText("User");
 		window.button(JButtonMatcher.withText("Add")).requireEnabled();
 	}
 	
@@ -82,21 +82,21 @@ public class StudyRoomSwingViewTest extends AssertJSwingJUnitTestCase{
 		window.textBox("nameTextBox").setText("");
 		
 		window.textBox("idTextBox").enterText("");
-		window.textBox("nameTextBox").enterText("Petra");
+		window.textBox("nameTextBox").enterText("User");
 		window.button(JButtonMatcher.withText("Add")).requireDisabled();
 	}
 	
 	@Test
 	public void testAddButtonShouldDelegateToStudyRoomControllerNewUser() {
 		window.textBox("idTextBox").enterText("1");
-		window.textBox("nameTextBox").enterText("Petra");
+		window.textBox("nameTextBox").enterText("User");
 		window.button(JButtonMatcher.withText("Add")).click();
-		verify(studyRoomController).newUser(new User("1", "Petra"));
+		verify(studyRoomController).newUser(new User("1", "User"));
 	}
 	
 	@Test
 	public void testDeleteButtonShouldBeEnabledOnlyWhenAUserIsSelected() {
-		GuiActionRunner.execute(() -> studyRoomSwingView.getListUsersModel().addElement(new User("1", "Petra")));
+		GuiActionRunner.execute(() -> studyRoomSwingView.getListUsersModel().addElement(new User("1", "User")));
 		window.list("usersList").selectItem(0);
 		JButtonFixture deleteButton = window.button(JButtonMatcher.withText("Delete"));
 		deleteButton.requireEnabled();
@@ -139,9 +139,7 @@ public class StudyRoomSwingViewTest extends AssertJSwingJUnitTestCase{
 		GuiActionRunner.execute(
 			() -> studyRoomSwingView.showError("error message", user)
 		);
-		//window.label("errorMessageLabel").requireText("error message: " + user);
 		window.label("errorMessageLabel").requireText("error message");
-
 	}
 	
 	@Test
@@ -158,7 +156,6 @@ public class StudyRoomSwingViewTest extends AssertJSwingJUnitTestCase{
 	
 	@Test
 	public void testStudentRemovedShouldRemoveTheStudentFromTheListAndResetTheErrorLabels() {
-		// setup
 		User user1 = new User("1", "test1");
 		User user2 = new User("2", "test2");
 		GuiActionRunner.execute(
@@ -168,12 +165,10 @@ public class StudyRoomSwingViewTest extends AssertJSwingJUnitTestCase{
 				listStudentsModel.addElement(user2);
 			}
 		);
-		// execute
 		GuiActionRunner.execute(
 			() ->
 			studyRoomSwingView.userRemoved(new User("1", "test1"))
 		);
-		// verify
 		String[] listContents = window.list().contents();
 		assertThat(listContents).containsExactly(user2.toString());
 		window.label("errorMessageLabel").requireText(" ");

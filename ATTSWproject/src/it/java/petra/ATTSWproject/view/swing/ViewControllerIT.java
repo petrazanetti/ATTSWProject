@@ -17,7 +17,7 @@ import com.mongodb.ServerAddress;
 
 import petra.ATTSWproject.controller.StudyRoomController;
 import petra.ATTSWproject.model.User;
-import petra.ATTSWproject.repository.StudyRoomMongoRepository;
+import petra.ATTSWproject.repository.mongo.StudyRoomMongoRepository;
 
 public class ViewControllerIT extends AssertJSwingJUnitTestCase{
 	
@@ -56,9 +56,9 @@ public class ViewControllerIT extends AssertJSwingJUnitTestCase{
 	@Test
 	public void testAddUser() {
 		window.textBox("idTextBox").enterText("1");
-		window.textBox("nameTextBox").enterText("test");
+		window.textBox("nameTextBox").enterText("User");
 		window.button(JButtonMatcher.withText("Add")).click();
-		assertThat(studyRoomMongoRepository.findById("1")).isEqualTo(new User("1", "test"));
+		assertThat(studyRoomMongoRepository.findById("1")).isEqualTo(new User("1", "User"));
 	}
 
 	@Test
@@ -69,6 +69,4 @@ public class ViewControllerIT extends AssertJSwingJUnitTestCase{
 		window.button(JButtonMatcher.withText("Delete")).click();
 		assertThat(studyRoomMongoRepository.findById("1")).isNull();
 	}
-
-
 }

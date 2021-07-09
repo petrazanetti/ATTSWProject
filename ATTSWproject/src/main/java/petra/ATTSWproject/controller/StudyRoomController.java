@@ -44,7 +44,6 @@ public class StudyRoomController {
 		studyRoomRepository.save(user);
 		studyRoomView.userAdded(user);
 		currentCapacity+=1;
-		
 	}
 
 	public void deleteUser(User user) {
@@ -56,11 +55,5 @@ public class StudyRoomController {
 		studyRoomRepository.delete(user.getId());
 		studyRoomView.userRemoved(user);
 		currentCapacity-=1;
-
 	}
-
-
-
-
-
 }

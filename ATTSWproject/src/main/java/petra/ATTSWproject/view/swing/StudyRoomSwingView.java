@@ -52,9 +52,6 @@ public class StudyRoomSwingView extends JFrame implements StudyRoomView {
 		return listUsersModel;
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public StudyRoomSwingView() {
 		
 		KeyAdapter btnAddEnabler = new KeyAdapter() {
@@ -134,8 +131,7 @@ public class StudyRoomSwingView extends JFrame implements StudyRoomView {
 		
 		btnDelete = new JButton("Delete");
 		btnDelete.setEnabled(false);
-		btnDelete.addActionListener(
-				e -> studyRoomController.deleteUser(listUsers.getSelectedValue()));
+		btnDelete.addActionListener(e -> studyRoomController.deleteUser(listUsers.getSelectedValue()));
 		GridBagConstraints gbc_btnDelete = new GridBagConstraints();
 		gbc_btnDelete.gridx = 2;
 		gbc_btnDelete.gridy = 2;
@@ -178,7 +174,6 @@ public class StudyRoomSwingView extends JFrame implements StudyRoomView {
 		gbc_lblErrorMessage.gridx = 0;
 		gbc_lblErrorMessage.gridy = 6;
 		contentPane.add(lblErrorMessage, gbc_lblErrorMessage);
-		
 	}
 	
 	@Override
@@ -189,12 +184,12 @@ public class StudyRoomSwingView extends JFrame implements StudyRoomView {
 	@Override
 	public void userAdded(User user) {
 		listUsersModel.addElement(user);
-		resetErrorLabels();	}
+		resetErrorLabels();
+	}
 
 	@Override
 	public void showError(String message, User user) {
-		lblErrorMessage.setText(message);		
-
+		lblErrorMessage.setText(message);
 	}
 
 	@Override
@@ -217,7 +212,4 @@ public class StudyRoomSwingView extends JFrame implements StudyRoomView {
 		lblErrorMessage.setText(" ");
 		lblErrorMessageFullRoom.setText(" ");
 	}
-	
-	
-
 }

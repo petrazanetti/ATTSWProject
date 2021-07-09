@@ -22,7 +22,7 @@ import com.mongodb.client.MongoDatabase;
 import de.bwaldvogel.mongo.MongoServer;
 import de.bwaldvogel.mongo.backend.memory.MemoryBackend;
 import petra.ATTSWproject.model.User;
-import petra.ATTSWproject.repository.StudyRoomMongoRepository;
+import petra.ATTSWproject.repository.mongo.StudyRoomMongoRepository;
 
 public class StudyRoomMongoRepositoryTest {
 
@@ -79,9 +79,9 @@ public class StudyRoomMongoRepositoryTest {
 
 	@Test
 	public void testFindAllWhenDatabaseIsNotEmpty() {
-		addTestUserToDatabase("1", "test1");
-		addTestUserToDatabase("2", "test2");
-		assertThat(studyRoomRepository.findAll()).containsExactly(new User("1", "test1"),new User("2", "test2"));
+		addTestUserToDatabase("1", "User1");
+		addTestUserToDatabase("2", "User2");
+		assertThat(studyRoomRepository.findAll()).containsExactly(new User("1", "User1"),new User("2", "User2"));
 	}
 	
 	@Test

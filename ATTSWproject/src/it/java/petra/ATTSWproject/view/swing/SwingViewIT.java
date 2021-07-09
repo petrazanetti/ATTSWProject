@@ -17,7 +17,7 @@ import com.mongodb.ServerAddress;
 
 import petra.ATTSWproject.controller.StudyRoomController;
 import petra.ATTSWproject.model.User;
-import petra.ATTSWproject.repository.StudyRoomMongoRepository;
+import petra.ATTSWproject.repository.mongo.StudyRoomMongoRepository;
 
 public class SwingViewIT extends AssertJSwingJUnitTestCase{
 	
@@ -57,8 +57,8 @@ public class SwingViewIT extends AssertJSwingJUnitTestCase{
 	
 	@Test @GUITest
 	public void testAllUsers() {
-		User user1 = new User("1", "test1");
-		User user2 = new User("2", "test2");
+		User user1 = new User("1", "User1");
+		User user2 = new User("2", "User2");
 		studyRoomMongoRepository.save(user1);
 		studyRoomMongoRepository.save(user2);
 		GuiActionRunner.execute(() -> studyRoomController.allUsers());
@@ -68,17 +68,17 @@ public class SwingViewIT extends AssertJSwingJUnitTestCase{
 	@Test @GUITest
 	public void testAddButtonSuccess() {
 		window.textBox("idTextBox").enterText("1");
-		window.textBox("nameTextBox").enterText("test");
+		window.textBox("nameTextBox").enterText("User");
 		window.button(JButtonMatcher.withText("Add")).click();
-		assertThat(window.list().contents()).containsExactly(new User("1", "test").toString());
+		assertThat(window.list().contents()).containsExactly(new User("1", "User").toString());
 	}
 
 	@Test @GUITest
 	public void testAddButtonError() {
-		User user = new User("1", "existing");
+		User user = new User("1", "existingUser");
 		studyRoomMongoRepository.save(user);
 		window.textBox("idTextBox").enterText("1");
-		window.textBox("nameTextBox").enterText("test");
+		window.textBox("nameTextBox").enterText("newUser");
 		window.button(JButtonMatcher.withText("Add")).click();
 		assertThat(window.list().contents()).isEmpty();
 		window.label("errorMessageLabel").requireText("User with id 1 already exists");
@@ -86,7 +86,7 @@ public class SwingViewIT extends AssertJSwingJUnitTestCase{
 
 	@Test @GUITest
 	public void testDeleteButtonSuccess() {
-		GuiActionRunner.execute(() -> studyRoomController.newUser(new User("1", "toremove")));
+		GuiActionRunner.execute(() -> studyRoomController.newUser(new User("1", "User")));
 		window.list().selectItem(0);
 		window.button(JButtonMatcher.withText("Delete")).click();
 		assertThat(window.list().contents()).isEmpty();
@@ -94,7 +94,7 @@ public class SwingViewIT extends AssertJSwingJUnitTestCase{
 
 	@Test @GUITest
 	public void testDeleteButtonError() {
-		User user = new User("1", "non existent");
+		User user = new User("1", "User");
 		GuiActionRunner.execute(() -> studyRoomSwingView.getListUsersModel().addElement(user));
 		window.list().selectItem(0);
 		window.button(JButtonMatcher.withText("Delete")).click();

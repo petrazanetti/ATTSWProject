@@ -15,7 +15,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 
 import petra.ATTSWproject.model.User;
-import petra.ATTSWproject.repository.StudyRoomMongoRepository;
+import petra.ATTSWproject.repository.mongo.StudyRoomMongoRepository;
 import petra.ATTSWproject.view.StudyRoomView;
 
 public class StudyRoomControllerIT{
@@ -52,7 +52,7 @@ public class StudyRoomControllerIT{
 	
 	@Test
 	public void testAllStudents() {
-		User user = new User("1", "test");
+		User user = new User("1", "User");
 		studyRoomMongoRepository.save(user);
 		studyRoomController.allUsers();
 		verify(studyRoomView).showAllUsers(asList(user));
@@ -60,14 +60,14 @@ public class StudyRoomControllerIT{
 
 	@Test
 	public void testNewStudent() {
-		User user = new User("1", "test");
+		User user = new User("1", "User");
 		studyRoomController.newUser(user);
 		verify(studyRoomView).userAdded(user);
 	}
 
 	@Test
 	public void testDeleteStudent() {
-		User user = new User("1", "test");
+		User user = new User("1", "User");
 		studyRoomMongoRepository.save(user);
 		studyRoomController.deleteUser(user);
 		verify(studyRoomView).userRemoved(user);
