@@ -7,7 +7,7 @@ import petra.ATTSWproject.model.User;
 
 public interface StudyRoomRepository {
 	
-	public List<User> findAll();
+	List<User> findAll();
 
 	User findById(String string);
 

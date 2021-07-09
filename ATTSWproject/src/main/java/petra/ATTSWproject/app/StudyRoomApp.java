@@ -9,7 +9,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 
 import petra.ATTSWproject.controller.StudyRoomController;
-import petra.ATTSWproject.repository.StudyRoomMongoRepository;
+import petra.ATTSWproject.repository.mongo.StudyRoomMongoRepository;
 import petra.ATTSWproject.view.swing.StudyRoomSwingView;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;

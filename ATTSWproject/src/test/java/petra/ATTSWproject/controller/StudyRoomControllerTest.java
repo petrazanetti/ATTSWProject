@@ -32,7 +32,8 @@ public class StudyRoomControllerTest {
 	@Before
 	public void setup() {
 		closeable = MockitoAnnotations.openMocks(this);
-		studyRoomController = new StudyRoomController(studyRoomView,studyRoomRepository, 10);	}
+		studyRoomController = new StudyRoomController(studyRoomView,studyRoomRepository, 10);
+	}
 	
 	@After
 	public void releaseMocks() throws Exception {
@@ -50,7 +51,7 @@ public class StudyRoomControllerTest {
 	@Test
 	public void testAddingNewUserWhenUserDoesNotAlreadyExist() {
 		studyRoomController.setCurrentCapacity(0);
-		User user = new User("1", "Klara");
+		User user = new User("1", "User");
 		when(studyRoomRepository.findById("1")).thenReturn(null);
 		studyRoomController.newUser(user);
 		InOrder inOrder = inOrder(studyRoomRepository, studyRoomView);
@@ -61,9 +62,9 @@ public class StudyRoomControllerTest {
 	
 	@Test
 	public void testAddingNewUserWhenUserDoesAlreadyExist() {
-		User existingUser = new User("1", "Klara");
+		User existingUser = new User("1", "User1");
 		studyRoomController.setCurrentCapacity(1);
-		User addedUser = new User("1", "Petra");
+		User addedUser = new User("1", "User2");
 		when(studyRoomRepository.findById("1")).thenReturn(existingUser);
 		studyRoomController.newUser(addedUser);
 		verify(studyRoomView).showError("User with id 1 already exists", existingUser);
@@ -74,7 +75,7 @@ public class StudyRoomControllerTest {
 	
 	@Test
 	public void testDeletingUserWhenUserExists() {
-		User user = new User("1", "Klara");
+		User user = new User("1", "User");
 		studyRoomController.setCurrentCapacity(1);
 		when(studyRoomRepository.findById("1")).thenReturn(user);
 		studyRoomController.deleteUser(user);
@@ -87,7 +88,7 @@ public class StudyRoomControllerTest {
 	@Test
 	public void testDeletingUserWhenUserDoesNotExist() {
 		studyRoomController.setCurrentCapacity(5);
-		User user = new User("1", "Klara");
+		User user = new User("1", "User");
 		when(studyRoomRepository.findById("1")).thenReturn(null);
 		studyRoomController.deleteUser(user);
 		verify(studyRoomView).showError("User with id 1 does not exist", user);
@@ -98,7 +99,7 @@ public class StudyRoomControllerTest {
 	@Test
 	public void testAddingNewUserWhenStudyRoomIsFull() {
 		studyRoomController.setCurrentCapacity(10);
-		User user = new User("1", "Klara");
+		User user = new User("1", "User");
 		studyRoomController.newUser(user);
 		verify(studyRoomView).showError("Study room is full");
 		verifyNoMoreInteractions(studyRoomRepository);

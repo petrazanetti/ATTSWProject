@@ -1,6 +1,7 @@
-package petra.ATTSWproject.repository;
+package petra.ATTSWproject.repository.mongo;
 
 import petra.ATTSWproject.model.User;
+import petra.ATTSWproject.repository.StudyRoomRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;

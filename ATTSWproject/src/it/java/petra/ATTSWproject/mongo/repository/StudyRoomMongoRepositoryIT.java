@@ -13,7 +13,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 import petra.ATTSWproject.model.User;
-import petra.ATTSWproject.repository.StudyRoomMongoRepository;
+import petra.ATTSWproject.repository.mongo.StudyRoomMongoRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
