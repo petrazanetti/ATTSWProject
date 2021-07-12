@@ -17,4 +17,6 @@ public interface StudyRoomView {
 
 	void userRemoved(User user);
 
+	void showDeletingError(String message, User user);
+
 }

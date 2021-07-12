@@ -49,7 +49,7 @@ public class StudyRoomController {
 	public void deleteUser(User user) {
 		User existingUser = studyRoomRepository.findById(user.getId());
 		if(existingUser == null) {
-			studyRoomView.showError("User with id " + user.getId() + " does not exist", user);
+			studyRoomView.showDeletingError("User with id " + user.getId() + " does not exist", user);
 			return;
 		}
 		studyRoomRepository.delete(user.getId());
