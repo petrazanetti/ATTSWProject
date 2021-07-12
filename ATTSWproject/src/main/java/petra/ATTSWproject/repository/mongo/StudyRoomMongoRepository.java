@@ -54,6 +54,4 @@ public class StudyRoomMongoRepository implements StudyRoomRepository {
 		return new User(""+d.get("id"), ""+d.get("name"));
 	}
 	
-	
-
 }

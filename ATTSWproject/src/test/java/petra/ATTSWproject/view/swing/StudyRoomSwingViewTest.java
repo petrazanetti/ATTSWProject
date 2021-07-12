@@ -137,7 +137,7 @@ public class StudyRoomSwingViewTest extends AssertJSwingJUnitTestCase{
 	public void testShowErrorWhenStudentCanNotBeDeletedShouldShowTheMessageInTheErrorLabel() {
 		User user = new User("1", "user1");
 		GuiActionRunner.execute(
-			() -> studyRoomSwingView.showError("error message", user)
+			() -> studyRoomSwingView.showDeletingError("error message", user)
 		);
 		window.label("errorMessageLabel").requireText("error message");
 	}

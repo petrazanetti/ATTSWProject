@@ -98,7 +98,7 @@ public class SwingViewIT extends AssertJSwingJUnitTestCase{
 		GuiActionRunner.execute(() -> studyRoomSwingView.getListUsersModel().addElement(user));
 		window.list().selectItem(0);
 		window.button(JButtonMatcher.withText("Delete")).click();
-		assertThat(window.list().contents()).containsExactly(user.toString());
+		assertThat(window.list().contents()).isEmpty();
 		window.label("errorMessageLabel").requireText("User with id " + user.getId() + " does not exist");
 	}
 

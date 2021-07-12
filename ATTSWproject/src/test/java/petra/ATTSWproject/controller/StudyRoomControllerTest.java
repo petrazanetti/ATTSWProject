@@ -91,7 +91,7 @@ public class StudyRoomControllerTest {
 		User user = new User("1", "User");
 		when(studyRoomRepository.findById("1")).thenReturn(null);
 		studyRoomController.deleteUser(user);
-		verify(studyRoomView).showError("User with id 1 does not exist", user);
+		verify(studyRoomView).showDeletingError("User with id 1 does not exist", user);
 		verifyNoMoreInteractions(ignoreStubs(studyRoomRepository));
 		assertEquals(5,studyRoomController.getCurrentCapacity(),0);
 	}

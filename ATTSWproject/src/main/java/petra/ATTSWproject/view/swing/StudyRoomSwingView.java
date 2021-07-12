@@ -212,4 +212,10 @@ public class StudyRoomSwingView extends JFrame implements StudyRoomView {
 		lblErrorMessage.setText(" ");
 		lblErrorMessageFullRoom.setText(" ");
 	}
+	
+	@Override
+	public void showDeletingError(String message, User user) {
+		lblErrorMessage.setText(message);
+		listUsersModel.removeElement(user);
+	}
 }
